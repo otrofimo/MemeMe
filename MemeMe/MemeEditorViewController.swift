@@ -13,24 +13,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
 
-    @IBOutlet weak var topTextfield: UITextField! {
-        didSet {
-            topTextfield.text = "TOP"
-            topTextfield.textAlignment = .Center
-            topTextfield.defaultTextAttributes = memeTextAttributes
-            topTextfield.delegate = self
-        }
-    }
-    
-    @IBOutlet weak var bottomTextfield: UITextField! {
-        didSet {
-            bottomTextfield.text = "BOTTOM"
-            bottomTextfield.textAlignment = .Center
-            bottomTextfield.defaultTextAttributes = memeTextAttributes
-            bottomTextfield.delegate = self
-        }
-    }
-    
+    @IBOutlet weak var topTextfield: UITextField!
+    @IBOutlet weak var bottomTextfield: UITextField!
+
     let memeTextAttributes = [
         NSStrokeColorAttributeName : UIColor.blackColor(),
         NSForegroundColorAttributeName : UIColor.whiteColor(),
@@ -41,13 +26,68 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        topTextfield.defaultTextAttributes = memeTextAttributes
+        topTextfield.text = "TOP"
+        topTextfield.textAlignment = .Center
+        topTextfield.delegate = self
+
+        bottomTextfield.defaultTextAttributes = memeTextAttributes
+        bottomTextfield.text = "BOTTOM"
+        bottomTextfield.textAlignment = .Center
+        bottomTextfield.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+        self.subscribeToKeyboardNotifications()
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.unsubscribeFromKeyboardNotifications()
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if bottomTextfield.isFirstResponder() {
+          self.view.frame.origin.y -= getKeyBoardHeight(notification)
+        }
+    }
+
+    func keyboardWillHide(notification: NSNotification) {
+        if bottomTextfield.isFirstResponder() {
+            self.view.frame.origin.y += getKeyBoardHeight(notification)
+        }
+    }
+
+    func getKeyBoardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        var keyboardSize: NSValue?
+        
+        println("is equal to show notification?")
+        println(notification.name == UIKeyboardWillShowNotification)
+        
+        switch notification.name {
+        case UIKeyboardWillShowNotification:
+           keyboardSize = userInfo![UIKeyboardFrameBeginUserInfoKey] as? NSValue
+        case UIKeyboardWillHideNotification:
+           keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue
+        default:
+            println("Correct notifications not found")
+        }
+
+        return keyboardSize!.CGRectValue().height
+    }
+    
+    func subscribeToKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func unsubscribeFromKeyboardNotifications(){
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+    }
+    
     // If the text is the default text, remove before editing
     func textFieldDidBeginEditing(textField: UITextField) {
         switch textField.text{
