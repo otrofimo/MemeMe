@@ -11,6 +11,7 @@ import UIKit
 
 struct Meme {
     var image: UIImage
-    var top: String
-    var bottom: String
+    var memedImage: UIImage
+    var topText: String
+    var bottomText: String
 }

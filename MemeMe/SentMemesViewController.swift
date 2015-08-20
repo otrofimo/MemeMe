@@ -8,14 +8,19 @@
 
 import UIKit
 
-class SentMemesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+class SentMemesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var memes = [Meme]()
+    var memes: [Meme]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
 
-        // Do any additional setup after loading the view.
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        memes = appDelegate.memes
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,19 +28,6 @@ class SentMemesViewController: UIViewController, UITableViewDelegate, UITableVie
         // Dispose of any resources that can be recreated.
     }
 
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! UIViewController
-        self.presentViewController(detailVC, animated: true, completion: nil)
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memes.count
-    }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = UICollectionViewCell()
