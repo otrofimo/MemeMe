@@ -32,9 +32,9 @@ class SentMemesTableViewController: UITableViewController, UITableViewDelegate, 
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier("DetailsViewController") as! DetailsViewController
+        let detailVC = storyboard!.instantiateViewControllerWithIdentifier("DetailsViewController") as! DetailsViewController
         detailVC.meme = memes[indexPath.row]
-        self.navigationController!.pushViewController(detailVC, animated: true)
+        navigationController!.pushViewController(detailVC, animated: true)
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

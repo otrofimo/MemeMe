@@ -177,8 +177,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         // Hide navigation bars
         setNavigationBarsToHidden(true)
 
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        self.view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
@@ -190,10 +190,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func setNavigationBarsToHidden(hidden: Bool) -> Void {
         // Toggle top toolbar vibility
-        self.navigationController?.setNavigationBarHidden(hidden, animated: true)
+        navigationController?.setNavigationBarHidden(hidden, animated: true)
         
         // Toggle bottom toolbar visibility
-        self.bottomToolbar.hidden = hidden
+        bottomToolbar.hidden = hidden
     }
     
 }

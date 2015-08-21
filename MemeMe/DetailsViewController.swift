@@ -19,7 +19,7 @@ class DetailsViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.detailsImageView.image = meme.memedImage
+        detailsImageView.image = meme.memedImage
     }
 
     override func didReceiveMemoryWarning() {
