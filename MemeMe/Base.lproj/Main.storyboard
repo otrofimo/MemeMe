@@ -140,7 +140,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SentMemesTableCell" textLabel="7wh-Ea-tj7" detailTextLabel="9z0-0D-Zx6" rowHeight="152" style="IBUITableViewCellStyleSubtitle" id="G7x-pI-V4D">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SentMemesTableCell" textLabel="7wh-Ea-tj7" rowHeight="152" style="IBUITableViewCellStyleDefault" id="G7x-pI-V4D">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G7x-pI-V4D" id="lWR-Af-FXe">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -148,12 +148,6 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7wh-Ea-tj7">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9z0-0D-Zx6">
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -198,8 +192,8 @@
                         <constraints>
                             <constraint firstItem="qWc-fp-Odb" firstAttribute="leading" secondItem="2TB-w3-CTE" secondAttribute="leadingMargin" constant="100" id="7gU-p3-9Ze"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qWc-fp-Odb" secondAttribute="trailing" constant="100" id="FFl-Xx-Ebi"/>
-                            <constraint firstItem="hNH-dM-2cc" firstAttribute="top" secondItem="qWc-fp-Odb" secondAttribute="bottom" constant="10" id="O1w-sy-gip"/>
-                            <constraint firstItem="qWc-fp-Odb" firstAttribute="top" secondItem="w3x-uN-VEl" secondAttribute="bottom" constant="10" id="vXf-Cf-vas"/>
+                            <constraint firstItem="hNH-dM-2cc" firstAttribute="top" secondItem="qWc-fp-Odb" secondAttribute="bottom" constant="59" id="O1w-sy-gip"/>
+                            <constraint firstItem="qWc-fp-Odb" firstAttribute="top" secondItem="w3x-uN-VEl" secondAttribute="bottom" constant="54" id="vXf-Cf-vas"/>
                         </constraints>
                     </view>
                     <connections>
