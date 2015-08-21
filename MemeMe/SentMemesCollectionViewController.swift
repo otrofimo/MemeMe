@@ -8,20 +8,20 @@
 
 import UIKit
 
-class SentMemesCollectionViewController: UICollectionViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class SentMemesCollectionViewController: UICollectionViewController{
 
     var memes: [Meme]!
     let reuseIdentifier = "SentMemesCollectionCell"
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.memes = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
+        memes = appDelegate.memes
+        collectionView!.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,24 +32,20 @@ class SentMemesCollectionViewController: UICollectionViewController, UICollectio
     // MARK: UICollectionViewDataSource
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! SentMemesCollectionCell
-
-        let meme = self.memes[indexPath.item]
-
-        cell.topText.text = meme.topText
-        cell.bottomText.text = meme.bottomText
-        cell.memeImageView = UIImageView(image: meme.image)
-
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
+        let meme = memes[indexPath.item]
+        cell.backgroundView = UIImageView(image: meme.memedImage)
         return cell
     }
 
-    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailsViewController") as! UIViewController
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let detailVC = self.storyboard?.instantiateViewControllerWithIdentifier("DetailsViewController") as! DetailsViewController
+        detailVC.meme = memes[indexPath.item]
         self.navigationController!.pushViewController(detailVC, animated: true)
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.memes.count
+        return memes.count
     }
 
 }

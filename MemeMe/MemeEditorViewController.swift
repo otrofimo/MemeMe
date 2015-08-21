@@ -10,6 +10,7 @@ import UIKit
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let topTextDefault = "TOP"
     let bottomTextDefault = "BOTTOM"
 
@@ -165,10 +166,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         if let image = self.imageView.image {
             var memedImage = generateMemedImage(image)
             var meme = Meme(image: image, memedImage: memedImage, topText: topTextfield.text, bottomText: bottomTextfield.text)
+
             // Add it to the memes array in the Application Delegate
-            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+            appDelegate.memes.append(meme)
         }
-        self.navigationController!.popViewControllerAnimated(true)
     }
     
     func generateMemedImage(image: UIImage) -> UIImage {

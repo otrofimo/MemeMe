@@ -11,10 +11,15 @@ import UIKit
 class DetailsViewController: UIViewController {
 
     var meme: Meme!
+    @IBOutlet weak var detailsImageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.detailsImageView.image = meme.memedImage
     }
 
     override func didReceiveMemoryWarning() {

@@ -12,6 +12,7 @@ class SentMemesTableViewController: UITableViewController, UITableViewDelegate, 
 
     var memes: [Meme]!
     let reuseIdentifier = "SentMemesTableCell"
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,7 @@ class SentMemesTableViewController: UITableViewController, UITableViewDelegate, 
         let object = UIApplication.sharedApplication().delegate
         let appDelegate = object as! AppDelegate
         memes = appDelegate.memes
+        tableView!.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,7 +31,7 @@ class SentMemesTableViewController: UITableViewController, UITableViewDelegate, 
         // Dispose of any resources that can be recreated.
     }
 
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailVC = self.storyboard!.instantiateViewControllerWithIdentifier("DetailsViewController") as! DetailsViewController
         detailVC.meme = memes[indexPath.row]
         self.navigationController!.pushViewController(detailVC, animated: true)
