@@ -56,24 +56,22 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
 
         // Subscribe to keyboard show/hide notifications
-        self.subscribeToKeyboardNotifications()
+        subscribeToKeyboardNotifications()
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        self.unsubscribeFromKeyboardNotifications()
+        unsubscribeFromKeyboardNotifications()
     }
 
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextfield.isFirstResponder() {
-          self.view.frame.origin.y -= getKeyBoardHeight(notification)
+          view.frame.origin.y -= getKeyBoardHeight(notification)
         }
     }
 
     func keyboardWillHide(notification: NSNotification) {
-        if bottomTextfield.isFirstResponder() {
-            self.view.frame.origin.y += getKeyBoardHeight(notification)
-        }
+        view.frame.origin.y = 0
     }
 
     func getKeyBoardHeight(notification: NSNotification) -> CGFloat {
@@ -133,37 +131,37 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+        presentViewController(imagePicker, animated: true, completion: nil)
     }
 
     @IBAction func takePicture(sender: UIBarButtonItem) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+        presentViewController(imagePicker, animated: true, completion: nil)
     }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.imageView.image = image
-            self.dismissViewControllerAnimated(true, completion: nil)
+            imageView.image = image
+            dismissViewControllerAnimated(true, completion: nil)
         }
     }
 
     @IBAction func cancelEditing(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     @IBAction func shareMeme(sender: UIBarButtonItem) {
-        if let image = self.imageView.image {
+        if let image = imageView.image {
             var memedImage = generateMemedImage(image)
             let activityVC = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-            self.presentViewController(activityVC, animated: true, completion: { self.save() })
+            presentViewController(activityVC, animated: true, completion: { self.save() })
         }
     }
 
     func save() {
-        if let image = self.imageView.image {
+        if let image = imageView.image {
             var memedImage = generateMemedImage(image)
             var meme = Meme(image: image, memedImage: memedImage, topText: topTextfield.text, bottomText: bottomTextfield.text)
 
